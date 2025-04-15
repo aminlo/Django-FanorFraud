@@ -10,5 +10,4 @@ urlpatterns = [
     path('profile/<int:user_id>/', views.ProfileView.as_view(), name='profile_other'),  # For viewing another user's profile
     path('profile/<str:username>/', views.ProfileView.as_view(), name='profile_other_username'),
     path('home/', views.HomeView.as_view(), name='home'),   
-    path('', views.index, name='index'),
 ]
