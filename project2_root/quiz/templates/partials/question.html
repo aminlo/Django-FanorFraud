@@ -1,34 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'quiz_index/base.html' %}
 
 {% block content %}
-<div>
-    <form id="question-form" action="{% url 'get-answer' %}" method="POST">
-      {% csrf_token %}
-  
-      <h2 id="heading-text">{{ question.text }}</h2>
-  
-      <ol style="list-style-type: none;">
-        {% for answer in answers %}
-        <li class="option">
-          <input
-            type="radio"
-            id="answer-{{ forloop.counter0 }}"
-            value="{{ answer.id }}"
-            name="answer_id"
-            required
-          />
-          <label for="answer-{{ forloop.counter0 }}">{{ answer.text }}</label>
-        </li>
-        {% endfor %}
-      </ol>
-  
-      <button class="btn" type="submit">Submit your answer</button>
-    </form>
-</div>
+<h2>Question</h2>
+<p>{{ question.text }}</p>
 
-<script>
-  window.onbeforeunload = function () {
-    return 'Are you sure you want to leave? You will lose your progress.'
-  }
-</script>
+<form method="post" action="{% url 'get-answer' %}">
+    {% csrf_token %}
+    <input type="hidden" name="quiz_id" value="{{ question.quiz.id }}">
+    {% for answer in answers %}
+        <div>
+            <input type="radio" name="answer_id" value="{{ answer.id }}" required>
+            <label>{{ answer.text }}</label>
+        </div>
+    {% endfor %}
+    <button type="submit">Submit Answer</button>
+</form>
 {% endblock %}

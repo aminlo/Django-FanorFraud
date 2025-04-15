@@ -12,11 +12,9 @@ class QuizForm(forms.ModelForm):
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ['text', 'points', 'order']
+        fields = ['text']
         widgets = {
-            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
-            'points': forms.NumberInput(attrs={'class': 'form-control'}),
-            'order': forms.NumberInput(attrs={'class': 'form-control'})
+            'text': forms.Textarea(attrs={'class': 'form-control', 'rows': 3})
         }
 
 class AnswerForm(forms.ModelForm):

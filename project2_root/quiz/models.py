@@ -12,11 +12,9 @@ class Question(models.Model):
   quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
   text = models.CharField(max_length=300)
   question_type = models.CharField(max_length=2, choices=QUESTION_TYPES, default=MULTIPLE_CHOICE)
-  points = models.PositiveIntegerField(default=1)
-  order = models.PositiveIntegerField(default=0)
 
   class Meta:
-    ordering = ['order']
+    ordering = ['id']
 
 class Answer(models.Model):
   question = models.ForeignKey(Question, on_delete=models.CASCADE)

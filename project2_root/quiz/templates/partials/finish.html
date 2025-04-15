@@ -1,6 +1,8 @@
-<div>
-    <p>Quiz complete. You scored {{ percent_score }}%</p>
-    <p>({{ score }} correct / {{ questions_count }} questions)</p>
-  
-    <a class="btn" href="{% url 'start' %}"> Start another quiz </a>
-  </div>
+{% extends 'quiz_index/base.html' %}
+
+{% block content %}
+<h2>Quiz Complete!</h2>
+<p>You scored {{ score }} out of {{ questions_count }} ({{ percent_score }}%)</p>
+
+<a href="{% url 'start' %}"><button>Start New Quiz</button></a>
+{% endblock %}

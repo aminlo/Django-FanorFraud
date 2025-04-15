@@ -1,34 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'quiz_index/base.html' %}
 
 {% block content %}
-<div>
-    <form action="{% url 'get-questions' %}" method="POST">
-        {% csrf_token %}
-        <input type="hidden" name="quiz_id" value="{{ answer.question.quiz_id }}" />
-    
-        <p>The question:</p>
-        <p>{{ answer.question.text }}</p>
-    
-        <div>
-            Your answer:
-            <p>{{ submitted_answer.text }}</p>
-        </div>
-    
-        <div>
-            {% if submitted_answer.is_correct %}
-            <div>
-                <p>Correct</p>
-            </div>
-            {% else %}
-            <div>
-                <p>Incorrect</p>
-                <p>The correct answer is:</p>
-                <p>{{ answer.text }}</p>
-            </div>
-            {% endif %}
-        </div>
-    
-        <button class="btn" type="submit">Next question</button>
-    </form>
-</div>
+<h2>Answer</h2>
+<p>Your answer: {{ submitted_answer.text }}</p>
+<p>Correct answer: {{ answer.text }}</p>
+
+<form method="post" action="{% url 'get-questions' %}">
+    {% csrf_token %}
+    <input type="hidden" name="quiz_id" value="{{ submitted_answer.question.quiz.id }}">
+    <button type="submit">Next Question</button>
+</form>
 {% endblock %}

@@ -42,7 +42,7 @@ class QuizDelete(DeleteView):
 class QuestionCreate(CreateView):
     model = Question
     template_name = 'quiz/question_create.html'
-    fields = ['text', 'points', 'order']
+    fields = ['text']
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,7 +75,7 @@ class QuestionCreate(CreateView):
 class QuestionUpdate(UpdateView):
     model = Question
     template_name = 'quiz/question_update.html'
-    fields = ['text', 'points', 'order']
+    fields = ['text']
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
