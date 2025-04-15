@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-def index(request):
-    return HttpResponse("Simple Test Site")
+def index(request, pagename=''):
+    pagename = '/' + pagename
+    context = {
+    }
+    return render(request, 'base.html', context)
