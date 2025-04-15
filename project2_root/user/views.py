@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import CreateView, FormView, RedirectView, UpdateView
+from django.views.generic import CreateView, FormView, RedirectView, UpdateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
@@ -16,7 +16,7 @@ def index(request, pagename=''):
     pagename = '/' + pagename
     context = {
     }
-    return render(request, 'generalhome.html', context)
+    return render(request, 'base.html', context)
 
 
 class SignUpView(CreateView):
@@ -32,13 +32,17 @@ class SignUpView(CreateView):
 class CustomLoginView(LoginView):
     form_class = AuthenticationForm
     template_name = 'accounts/login.html'
+    success_url = reverse_lazy('profile')  # overrides LOGIN_REDIRECT_URL
+
+    def get_success_url(self):
+        return self.success_url
 
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('home')  # Or login page or wherever
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
-    template_name = 'accounts/home.html'
+    template_name = 'accounts/profile.html'
     login_url = 'login'
 
 class HomeView(View):
@@ -46,4 +50,5 @@ class HomeView(View):
         context = {
         }
         return render(request, 'accounts/home.html', context)
+
 

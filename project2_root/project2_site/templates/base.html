@@ -10,7 +10,7 @@
         <ul>
             <li><p> render from BAse nav taken</p></li>
             <li><a href="{% url 'index' %}">Home</a></li>
-            {% if auser.is_authenticated %}
+            {% if user.is_authenticated %}
             <li><span>Hi, {{ user.username }}</span> |
             <form method="post" action="{% url 'logout' %}" style="display:inline;">
                 {% csrf_token %}
@@ -24,7 +24,7 @@
         {% endif %}
         </ul>
     </nav>
-    <h1>templatebase</h1>
+    <h1>templatebasefdd</h1>
     {% block content %}
     <h1>Hello, Wor1ld!</h1>
     {% endblock content %}
