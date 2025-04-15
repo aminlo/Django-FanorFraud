@@ -33,7 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'general.apps.GeneralConfig',
-    'tvprogrammes.apps.TvprogrammesConfig',
+    'quiz.apps.QuizConfig',
     'user.apps.UserConfig',
     'django.contrib.admin',
     'django.contrib.auth',
