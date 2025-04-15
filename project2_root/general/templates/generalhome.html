@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello Worlsssssd</title>
-</head>
-<body>
-    <h1>Hello, 222World!</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 50px 0;">
+    <h1>{{ title }}</h1>
+    <p>Click below to start a quiz!</p>
+    <a href="{% url 'start' %}" class="btn">Start Quiz</a>
+</div>
+{% endblock %}

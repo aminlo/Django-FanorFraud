@@ -4,5 +4,6 @@ from django.http import HttpResponse
 def index(request, pagename=''):
     pagename = '/' + pagename
     context = {
+        'title': 'Welcome to the Quiz App'
     }
-    return render(request, 'base.html', context)
+    return render(request, 'generalhome.html', context)
