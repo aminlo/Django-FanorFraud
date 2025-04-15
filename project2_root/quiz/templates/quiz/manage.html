@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Quizzes</h2>
+<a href="{% url 'quiz-create' %}"><button>Add Quiz</button></a>
+
+{% for quiz in quizzes %}
+    <p>{{ quiz.name }}</p>
+    <a href="{% url 'quiz-detail' quiz.id %}"><button>View</button></a>
+    <a href="{% url 'quiz-update' quiz.id %}"><button>Edit</button></a>
+    <a href="{% url 'quiz-delete' quiz.id %}"><button>Delete</button></a>
+    <br>
+{% endfor %}
+{% endblock %} 

@@ -1,34 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form id="topic-container" action="{% url 'get-questions' %}/start" method="POST">
-      {% csrf_token %}
-      <h2 id="heading-text">What would you like to learn about?</h2>
-      <div id="topic-list">
-        <p>Please pick a topic from the below topics</p>
+    <div class="container mt-4">
+        <div class="row mb-4">
+            <div class="col-12 d-flex justify-content-center gap-3">
+                <a href="{% url 'quiz-create' %}" class="btn btn-primary">Create New Quiz</a>
+                <a href="{% url 'quiz-manage' %}" class="btn btn-secondary">Manage Quizzes</a>
+            </div>
+        </div>
 
-        <ol style="list-style-type: none;">
-          {% for topic in topics %}
-          <li class="option">
-            <input
-              type="radio"
-              id="topic-{{ forloop.counter0 }}"
-              value="{{ topic.id }}"
-              name="quiz_id"
-              required
-            />
-            <label for="topic-{{ forloop.counter0 }}"
-              >{{ topic.name }} ({{ topic.questions_count }} questions)</label
-            >
-          </li>
-          {% endfor %} {% if not topics %}
-          <li>
-            No topics available. Have you added topics into your database?
-          </li>
-          {% endif %}
-        </ol>
+        <form id="topic-container" action="{% url 'get-questions' %}/start" method="POST">
+            {% csrf_token %}
+            <h2 id="heading-text">What would you like to learn about?</h2>
+            <div id="topic-list">
+                <p>Please pick a topic from the below topics</p>
 
-        <button class="btn" type="submit">Start your quiz</button>
-      </div>
-    </form>
+                <ol style="list-style-type: none;">
+                    {% for topic in topics %}
+                    <li class="option">
+                        <input
+                            type="radio"
+                            id="topic-{{ forloop.counter0 }}"
+                            value="{{ topic.id }}"
+                            name="quiz_id"
+                            required
+                        />
+                        <label for="topic-{{ forloop.counter0 }}"
+                            >{{ topic.name }} ({{ topic.questions_count }} questions)</label
+                        >
+                    </li>
+                    {% endfor %} 
+                    {% if not topics %}
+                    <li>
+                        No topics available. Have you added topics into your database?
+                    </li>
+                    {% endif %}
+                </ol>
+
+                <button class="btn" type="submit">Start your quiz</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

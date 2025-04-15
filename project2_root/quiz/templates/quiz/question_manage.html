@@ -1,0 +1,39 @@
+{% extends 'quiz/base_manage.html' %}
+
+{% block manage_content %}
+<div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h2>Questions for {{ quiz.name }}</h2>
+        <a href="{% url 'question-create' quiz.pk %}" class="btn btn-primary">Add Question</a>
+    </div>
+    <div class="card-body">
+        {% if questions %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Question</th>
+                            <th>Type</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for question in questions %}
+                            <tr>
+                                <td>{{ question.text }}</td>
+                                <td>{{ question.get_question_type_display }}</td>
+                                <td>
+                                    <a href="{% url 'question-update' quiz.pk question.pk %}" class="btn btn-sm btn-primary">Edit</a>
+                                    <a href="{% url 'question-delete' quiz.pk question.pk %}" class="btn btn-sm btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p>No questions found. Add your first question!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

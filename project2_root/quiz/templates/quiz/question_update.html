@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Update Question</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <h3>Answers:</h3>
+    {{ answer_formset.management_form }}
+    {% for form in answer_formset %}
+        <div class="answer-form" style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+            <div style="margin-bottom: 10px;">
+                <label>Answer Text:</label>
+                {{ form.text }}
+            </div>
+            <div>
+                <label>
+                    {{ form.is_correct }} Mark as correct answer
+                </label>
+            </div>
+            {{ form.id }}
+        </div>
+    {% endfor %}
+    
+    <input type="submit" value="Submit" />
+</form>
+<a href="{% url 'quiz-detail' question.quiz.id %}"><button>Back to Quiz</button></a>
+{% endblock %} 
