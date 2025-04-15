@@ -132,3 +132,6 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'user.CustomUser'
+LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+SESSION_COOKIE_NAME = 'sessionid'  # Default session cookie name

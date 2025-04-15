@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 
+
 {% block content %}
-  <h1>{{ user.username }}'s Profile</h1>
+
+  <h1>{{ profile_user.username }}'s Profile</h1>
 
   {% if is_own_profile %}
     <p>Welcome to your profile!</p>
@@ -14,6 +16,7 @@
   {% else %}
     <p>You are viewing {{ profile_user.username }}'s profile.</p>
     <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
+    <p>Bio: {{ profile_user.bio }}</p>
     <!-- Optionally display more information about the other user's profile -->
   {% endif %}
   
