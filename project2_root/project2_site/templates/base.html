@@ -6,6 +6,27 @@
     <title>Hello World</title>
 </head>
 <body>
+    <nav>
+        <ul>
+            <li><p> render from BAse nav taken</p></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            {% if auser.is_authenticated %}
+            <li><span>Hi, {{ user.username }}</span> |
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="background:none; border:none; color:blue; cursor:pointer;">
+                  Logout
+                </button>
+              </form></li>
+        {% else %}
+        </li><a href="{% url 'login' %}">Login</a></li>
+        </li><a href="{% url 'signup' %}">Sign Up</a></li>
+        {% endif %}
+        </ul>
+    </nav>
+    <h1>templatebase</h1>
+    {% block content %}
     <h1>Hello, Wor1ld!</h1>
+    {% endblock content %}
 </body>
 </html>
