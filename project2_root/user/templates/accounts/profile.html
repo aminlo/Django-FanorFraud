@@ -2,11 +2,20 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-  <h2>{{ user.username }}'s Profile</h2>
-  {% if user.profile.profile_picture %}
-    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
+  <h1>{{ user.username }}'s Profile</h1>
+
+  {% if is_own_profile %}
+    <p>Welcome to your profile!</p>
+    <p>Email: {{ profile_user.email }}</p>
+    <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
+    <p>Bio: {{ profile_user.bio }}</p>
+    <li><a href="{% url 'profile_update' %}">Update profile</a></li>
+    <!-- Other fields you want to display -->
   {% else %}
-    <p>No profile picture uploaded.</p>
+    <p>You are viewing {{ profile_user.username }}'s profile.</p>
+    <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
+    <!-- Optionally display more information about the other user's profile -->
   {% endif %}
-  <a href="{% url 'home' %}">Update Profile Picture</a>
+  
+  <!-- Other profile content -->
 {% endblock %}
