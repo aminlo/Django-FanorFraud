@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>Search Results for "{{ request.GET.q }}"</h2>
+
+{% if results %}
+    <ul>
+    {% for item in results %}
+      <li>
+        <a href="{% url 'series_detail' item.imdbID %}">
+          <strong>{{ item.Title }}</strong> ({{ item.Year }})
+        </a><br>
+        {% if item.Poster != 'N/A' %}
+          <img src="{{ item.Poster }}" alt="{{ item.Title }}" width="100">
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No results found.</p>
+{% endif %}
+
+{% endblock content %}
