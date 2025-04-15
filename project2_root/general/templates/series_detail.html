@@ -1,0 +1,9 @@
+<h1>{{ series.Title }}</h1>
+<p><strong>Year:</strong> {{ series.Year }}</p>
+<p><strong>Genre:</strong> {{ series.Genre }}</p>
+<p><strong>Plot:</strong> {{ series.Plot }}</p>
+{% if series.Poster != 'N/A' %}
+  <img src="{{ series.Poster }}" alt="{{ series.Title }}" width="200">
+{% endif %}
+
+<a href="{% url 'index' %}">⬅ Back to Home</a>

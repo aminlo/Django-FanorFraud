@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Update Profile{% endblock %}
+
+
+{% block content %}
+  <h1>{{ user.username }}'s Profile</h1>
+
+
+    <p>Welcome to your profile!</p>
+    <p>Email: {{ user.email }}</p>
+    <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Update</button>
+    </form>
+
+  
+  <!-- Other profile content -->
+{% endblock %}
