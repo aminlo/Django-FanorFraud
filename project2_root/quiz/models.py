@@ -1,7 +1,10 @@
 from django.db import models
+from user.models import CustomUser
 
 class Quiz(models.Model):
-  name = models.CharField(max_length=300)
+    name = models.CharField(max_length=300)
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    imdb_id = models.CharField(max_length=20, null=True, blank=True)
 
 class Question(models.Model):
   MULTIPLE_CHOICE = 'MC'

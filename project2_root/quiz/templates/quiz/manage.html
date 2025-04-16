@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Quizzes</h2>
-<a href="{% url 'quiz-create' %}"><button>Add Quiz</button></a>
+
 
 {% for quiz in quizzes %}
     <p>{{ quiz.name }}</p>
