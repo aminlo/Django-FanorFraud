@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpRequest
 from django.db.models import Count
-from .models import Quiz, Question, Answer
+from .models import Quiz, Question, Answer, QuizResult
 from django.core.paginator import Paginator
 from typing import Optional
 from django.contrib import messages
@@ -10,6 +10,7 @@ from .forms import QuizForm, QuestionForm, AnswerForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.utils import timezone
 
 # Quiz Management Views (refer to week 10) (Class-based)
 class QuizList(ListView):
@@ -183,6 +184,17 @@ def get_finish(request) -> HttpResponse:
     questions_count = Question.objects.filter(quiz=quiz).count()
     score = request.session.get('score', 0)
     percent = int(score / questions_count * 100)
+    
+    # Save the quiz result if user is authenticated
+    if request.user.is_authenticated:
+        QuizResult.objects.create(
+            user=request.user,
+            quiz=quiz,
+            score=score,
+            total_questions=questions_count,
+            percentage=percent
+        )
+    
     request = _reset_quiz(request)
 
     return render(request, 'partials/finish.html', context={
