@@ -10,6 +10,7 @@ from .forms import QuizForm, QuestionForm, AnswerForm
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 
 # Quiz Management Views (refer to week 10) (Class-based)
@@ -18,11 +19,18 @@ class QuizList(ListView):
     template_name = 'quiz/manage.html'
     context_object_name = 'quizzes'
 
-class QuizCreate(CreateView):
+class QuizCreate(LoginRequiredMixin, CreateView):
     model = Quiz
     template_name = 'quiz/create.html'
     fields = ['name']
     success_url = reverse_lazy('quiz-manage')
+
+    def form_valid(self, form):
+        form.instance.owner = self.request.user
+        imdb_id = self.kwargs.get('imdb_id')
+        if imdb_id:
+            form.instance.imdb_id = imdb_id
+        return super().form_valid(form)
 
 class QuizDetail(DetailView):
     model = Quiz

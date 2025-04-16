@@ -12,12 +12,44 @@
     <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
     <p>Bio: {{ profile_user.bio }}</p>
     <li><a href="{% url 'profile_update' %}">Update profile</a></li>
+    <p>Quizzes:</p>
+    <ul>
+      {% for quiz in user.quiz_set.all %}
+      <li>
+          {{ quiz.name }}
+          {{ quiz.id }}
+          <form method="post" action="{% url 'get-questions-start' %}">
+              {% csrf_token %}
+              <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+              <button type="submit">Start</button>
+          </form>
+      </li>
+  {% empty %}
+      <li>No quizzes found.</li>
+  {% endfor %}
+    </ul>
     <!-- Other fields you want to display -->
   {% else %}
     <p>You are viewing {{ profile_user.username }}'s profile.</p>
     <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
     <p>Bio: {{ profile_user.bio }}</p>
     <!-- Optionally display more information about the other user's profile -->
+    <ul>
+      <p>Quizzes:</p>
+      {% for quiz in profile_user.quiz_set.all %}
+      <li>
+          {{ quiz.name }}
+          {{ quiz.id }}
+          <form method="post" action="{% url 'get-questions-start' %}">
+              {% csrf_token %}
+              <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+              <button type="submit">Start</button>
+          </form>
+      </li>
+  {% empty %}
+      <li>No quizzes found.</li>
+  {% endfor %}
+    </ul>
   {% endif %}
   
   <!-- Other profile content -->

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 import requests
 from django.views.generic import TemplateView
-
+from quiz.models import Quiz
 
 class HomeView(TemplateView):
     template_name = 'index.html'
@@ -45,5 +45,8 @@ class SeriesDetailView(TemplateView):
             data = response.json()
             if data.get('Response') == 'True':
                 context['series'] = data
-        
+                context['imdb_id'] = imdb_id
+                context['quizzes'] = Quiz.objects.filter(imdb_id=imdb_id)
+                context['can_create'] = self.request.user.is_authenticated
+
         return context

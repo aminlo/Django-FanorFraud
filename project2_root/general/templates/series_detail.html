@@ -7,3 +7,25 @@
 {% endif %}
 
 <a href="{% url 'index' %}">⬅ Back to Home</a>
+
+<h2>Quizzes for this show:</h2>
+<ul>
+{% for quiz in quizzes %}
+    <li>
+        {{ quiz.name }}
+        {{ quiz.id }}
+        {{ quiz.owner }}
+        <form method="post" action="{% url 'get-questions-start' %}">
+            {% csrf_token %}
+            <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+            <button type="submit">Start</button>
+        </form>
+    </li>
+{% empty %}
+    <li>No quizzes found.</li>
+{% endfor %}
+</ul>
+
+{% if can_create %}
+  <a href="{% url 'quiz-create' imdb_id %}">Create a Quiz for This Series</a>
+{% endif %}
