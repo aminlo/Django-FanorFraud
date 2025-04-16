@@ -54,6 +54,10 @@
   {% endfor %}
     </ul>
   {% endif %}
-  
+  <p>Quizzes Resuls:</p>
+  {% for qresult in user.quizresult_set.all %}
+    <p>{{ qresult.quiz.name }} {{ qresult.score }}/{{ qresult.total_questions }} {{ qresult.percentage }}%</p>
+
+  {% endfor %}
   <!-- Other profile content -->
 {% endblock %}

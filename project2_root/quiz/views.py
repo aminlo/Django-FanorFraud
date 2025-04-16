@@ -124,7 +124,7 @@ class QuestionDelete(DeleteView):
 def start_quiz_view(request) -> HttpResponse:
     topics = Quiz.objects.all().annotate(questions_count=Count('question'))
     return render(
-        request, 'start.html', context={'topics': topics}
+        request, 'index.html', context={'topics': topics}
     )
 
 def get_questions(request, is_start=False) -> HttpResponse:

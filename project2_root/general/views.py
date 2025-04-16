@@ -3,9 +3,15 @@ from django.http import HttpResponse
 import requests
 from django.views.generic import TemplateView
 from quiz.models import Quiz
+from django.db.models import Count
 
 class HomeView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['topics'] = Quiz.objects.all().annotate(questions_count=Count('question'))
+        return context
 
 class SearchResultsView(TemplateView):
     template_name = 'searchres.html'
