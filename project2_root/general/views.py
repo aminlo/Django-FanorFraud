@@ -10,7 +10,20 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['topics'] = Quiz.objects.all().annotate(questions_count=Count('question'))
+        topics = Quiz.objects.all().annotate(questions_count=Count('question'))
+        
+        # add topics to context, but we want image as well so send request to omdbapi
+        for topic in topics:
+            if topic.imdb_id:
+                response = requests.get('http://www.omdbapi.com/', params={
+                    'apikey': '96881c4f',
+                    'i': topic.imdb_id
+                })
+                data = response.json()
+                if data.get('Response') == 'True':
+                    topic.series_info = data
+        
+        context['topics'] = topics
         return context
 
 class SearchResultsView(TemplateView):

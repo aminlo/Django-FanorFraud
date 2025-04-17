@@ -68,6 +68,7 @@ class ProfileView(TemplateView):
         else:
             user = self.request.user  # Default to the logged-in user's profile
 
+        
         # Add user data to the context (to be accessed as)
         context['profile_user'] = user
         context['is_own_profile'] = (user == self.request.user)  # Check if viewing own profile (flag)

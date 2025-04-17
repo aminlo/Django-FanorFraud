@@ -16,6 +16,9 @@
     <ul>
       {% for quiz in user.quiz_set.all %}
       <li>
+          {% if quiz.imdb_id %}
+          <img src="https://img.omdbapi.com/?i={{ quiz.imdb_id }}&apikey=96881c4f" alt="{{ quiz.name }}" style=width:100px;">
+          {% endif %}
           {{ quiz.name }}
           {{ quiz.id }}
           <form method="post" action="{% url 'get-questions-start' %}">
@@ -39,6 +42,9 @@
       <p>Quizzes:</p>
       {% for quiz in profile_user.quiz_set.all %}
       <li>
+          {% if quiz.imdb_id %}
+          <img src="https://img.omdbapi.com/?i={{ quiz.imdb_id }}&apikey=YOUR_API_KEY" alt="{{ quiz.name }}" style="max-width:100px; margin-right:10px;">
+          {% endif %}
           {{ quiz.name }}
           {{ quiz.id }}
           <form method="post" action="{% url 'get-questions-start' %}">
