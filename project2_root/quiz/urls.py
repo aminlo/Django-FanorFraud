@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
     # Taking the Quiz (Function-based)
-    path('', views.start_quiz_view, name='start'),
     path('get-questions/start', views.get_questions, {'is_start': True}, name='get-questions-start'),
     path('get-questions', views.get_questions, {'is_start': False}, name='get-questions'),
     path('get-answer', views.get_answer, name='get-answer'),

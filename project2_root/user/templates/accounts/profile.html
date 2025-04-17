@@ -31,12 +31,10 @@
       <li>No quizzes found.</li>
   {% endfor %}
     </ul>
-    <!-- Other fields you want to display -->
   {% else %}
     <p>You are viewing {{ profile_user.username }}'s profile.</p>
     <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
     <p>Bio: {{ profile_user.bio }}</p>
-    <!-- Optionally display more information about the other user's profile -->
     <ul>
       <p>Quizzes:</p>
       {% for quiz in profile_user.quiz_set.all %}
@@ -56,8 +54,7 @@
   {% endif %}
   <p>Quizzes Resuls:</p>
   {% for qresult in user.quizresult_set.all %}
-    <p>{{ qresult.quiz.name }} {{ qresult.score }}/{{ qresult.total_questions }} {{ qresult.percentage }}%</p>
+    <p>{{ qresult.quiz.name }} {{ qresult.score }}/{{ qresult.total_questions }} {{ qresult.percentage }}% taken at {{ qresult.completed_at }}</p>
 
   {% endfor %}
-  <!-- Other profile content -->
 {% endblock %}
