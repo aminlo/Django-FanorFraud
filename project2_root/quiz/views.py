@@ -23,14 +23,16 @@ class QuizCreate(LoginRequiredMixin, CreateView):
     model = Quiz
     template_name = 'quiz/create.html'
     fields = ['name']
-    success_url = reverse_lazy('quiz-manage')
-
+    
     def form_valid(self, form):
         form.instance.owner = self.request.user
         imdb_id = self.kwargs.get('imdb_id')
         if imdb_id:
             form.instance.imdb_id = imdb_id
         return super().form_valid(form)
+    
+    def get_success_url(self):
+        return reverse_lazy('quiz-detail', kwargs={'pk': self.object.pk})
 
 class QuizDetail(DetailView):
     model = Quiz
