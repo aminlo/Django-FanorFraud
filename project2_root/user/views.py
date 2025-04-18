@@ -8,6 +8,9 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
+import requests
+from quiz.models import Quiz
+from django.db.models import Count
 
 def index(request, pagename=''):
     pagename = '/' + pagename
@@ -73,6 +76,18 @@ class ProfileView(TemplateView):
         context['profile_user'] = user
         context['is_own_profile'] = (user == self.request.user)  # Check if viewing own profile (flag)
 
+        topics = user.quiz_set.all().annotate(questions_count=Count('question'))
+        for topic in topics:
+            if topic.imdb_id:
+                response = requests.get('http://www.omdbapi.com/', params={
+                    'apikey': '96881c4f',
+                    'i': topic.imdb_id
+                })
+                data = response.json()
+                if data.get('Response') == 'True':
+                    topic.series_info = data
+        
+        context['topics'] = topics
         return context
     
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):

@@ -14,10 +14,10 @@
     <li><a href="{% url 'profile_update' %}">Update profile</a></li>
     <p>Quizzes:</p>
     <ul>
-      {% for quiz in user.quiz_set.all %}
+      {% for quiz in topics %}
       <li>
           {% if quiz.imdb_id %}
-          <img src="https://img.omdbapi.com/?i={{ quiz.imdb_id }}&apikey=96881c4f" alt="{{ quiz.name }}" style=width:100px;">
+          <img src="{{ quiz.series_info.Poster }}" alt="{{ quiz.name }}" style=width:100px;">
           {% endif %}
           {{ quiz.name }}
           {{ quiz.id }}
