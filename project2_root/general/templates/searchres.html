@@ -2,23 +2,28 @@
 
 {% block content %}
 
-<h2>Search Results for "{{ request.GET.q }}"</h2>
+<div class="container mt-3">
+  <h5 class="text-center mb-3">Search Results for "{{ request.GET.q }}"</h5>
 
-{% if results %}
-    <ul>
-    {% for item in results %}
-      <li>
-        <a href="{% url 'series_detail' item.imdbID %}">
-          <strong>{{ item.Title }}</strong> ({{ item.Year }})
-        </a><br>
-        {% if item.Poster != 'N/A' %}
-          <img src="{{ item.Poster }}" alt="{{ item.Title }}" width="100">
-        {% endif %}
-      </li>
-    {% endfor %}
-  </ul>
-{% else %}
-  <p>No results found.</p>
-{% endif %}
+  {% if results %}
+    <div class="row">
+      {% for item in results %}
+        <div class="col-6 col-sm-4 col-md-2 mb-2">
+          <div class="card h-100">
+            {% if item.Poster != 'N/A' %}
+              <img src="{{ item.Poster }}" class="card-img-top img-fluid" alt="{{ item.Title }}">
+            {% endif %}
+            <div class="card-body p-1">
+              <h6 class="card-title mb-1 text-truncate">{{ item.Title }} ({{ item.Year }})</h6>
+              <a href="{% url 'series_detail' item.imdbID %}" class="btn btn-sm btn-primary">Details</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-muted">No results found.</p>
+  {% endif %}
+</div>
 
 {% endblock content %}

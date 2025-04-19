@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Create Quiz</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
-<a href="{% url 'quiz-manage' %}"><button>Back to Quizzes</button></a>
-{% endblock %} 
+<div class="container my-5">
+  <div class="card shadow p-4">
+    <h2 class="text-center text-primary mb-4">Create Quiz</h2>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ form.as_p }}
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success">
+          <i class="bi bi-check-circle"></i> Submit
+        </button>
+        <a href="{% url 'quiz-manage' %}" class="btn btn-outline-secondary">
+          <i class="bi bi-arrow-left-circle"></i> Back to Quizzes
+        </a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
