@@ -1,66 +1,58 @@
 {% extends "base.html" %}
 {% block title %}Profile{% endblock %}
 
-
 {% block content %}
+<div class="profile-page">
+    <div class="profile-container">
+        <h1 class="profile-title">{{ profile_user.username }}'s Profile</h1>
 
-  <h1>{{ profile_user.username }}'s Profile</h1>
+        {% if is_own_profile %}
+        <p class="profile-welcome">Welcome to your profile!</p>
+        <p class="profile-email">Email: {{ profile_user.email }}</p>
+        <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        <p class="profile-bio">Bio: {{ profile_user.bio }}</p>
+        <a href="{% url 'profile_update' %}" class="profile-update-button">Update Profile</a>
 
-  {% if is_own_profile %}
-    <p>Welcome to your profile!</p>
-    <p>Email: {{ profile_user.email }}</p>
-    <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
-    <p>Bio: {{ profile_user.bio }}</p>
-    <li><a href="{% url 'profile_update' %}">Update profile</a></li>
-    <p>Quizzes:</p>
-    <ul>
-      {% for quiz in topics %}
-      <li>
-          {% if quiz.imdb_id %}
-          <img src="{{ quiz.series_info.Poster }}" alt="{{ quiz.name }}" style=width:100px;">
-          {% endif %}
-          {{ quiz.name }}
-          {{ quiz.id }}
-          <form method="post" action="{% url 'get-questions-start' %}">
-              {% csrf_token %}
-              <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
-              <button type="submit">Start ur own quiz</button>
-          </form>
-          <a href="{% url 'quiz-detail' quiz.id %}"><button>View</button></a>
-          <a href="{% url 'quiz-update' quiz.id %}"><button>Edit</button></a>
-          <a href="{% url 'quiz-delete' quiz.id %}"><button>Delete</button></a>
-      </li> <br>
-  {% empty %}
-      <li>No quizzes found.</li>
-  {% endfor %}
-    </ul>
-  {% else %}
-    <p>You are viewing {{ profile_user.username }}'s profile.</p>
-    <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" style="max-width:200px;">
-    <p>Bio: {{ profile_user.bio }}</p>
-    <ul>
-      <p>Quizzes:</p>
-      {% for quiz in profile_user.quiz_set.all %}
-      <li>
-          {% if quiz.imdb_id %}
-          <img src="https://img.omdbapi.com/?i={{ quiz.imdb_id }}&apikey=YOUR_API_KEY" alt="{{ quiz.name }}" style="max-width:100px; margin-right:10px;">
-          {% endif %}
-          {{ quiz.name }}
-          {{ quiz.id }}
-          <form method="post" action="{% url 'get-questions-start' %}">
-              {% csrf_token %}
-              <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
-              <button type="submit">Start</button>
-          </form>
-      </li>
-  {% empty %}
-      <li>No quizzes found.</li>
-  {% endfor %}
-    </ul>
-  {% endif %}
-  <p>Quizzes Resuls:</p>
-  {% for qresult in user.quizresult_set.all %}
-    <p>{{ qresult.quiz.name }} {{ qresult.score }}/{{ qresult.total_questions }} {{ qresult.percentage }}% taken at {{ qresult.completed_at }}</p>
+        <h2 class="profile-section-title">Your Quizzes</h2>
+        <ul class="quiz-list">
+            {% for quiz in topics %}
+            <li class="quiz-item">
+                {% if quiz.imdb_id %}
+                <img src="{{ quiz.series_info.Poster }}" alt="{{ quiz.name }}" class="quiz-poster">
+                {% endif %}
+                <span class="quiz-name">{{ quiz.name }}</span>
+                <form method="post" action="{% url 'get-questions-start' %}" class="quiz-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+                    <button type="submit" class="quiz-button">Start Quiz</button>
+                </form>
+                <div class="quiz-actions">
+                    <a href="{% url 'quiz-detail' quiz.id %}" class="quiz-action-button">View Quiz</a>
+                    <a href="{% url 'quiz-update' quiz.id %}" class="quiz-action-button">Edit Name</a>
+                    <a href="{% url 'quiz-delete' quiz.id %}" class="quiz-action-button">Delete Quiz</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="quiz-item">No quizzes found.</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="profile-viewing">You are viewing {{ profile_user.username }}'s profile.</p>
+        <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        <p class="profile-bio">Bio: {{ profile_user.bio }}</p>
+        {% endif %}
 
-  {% endfor %}
+        <h2 class="profile-section-title">Quiz Results</h2>
+        <ul class="quiz-results">
+            {% for qresult in user.quizresult_set.all %}
+            <li class="quiz-result-item">
+                <span>{{ qresult.quiz.name }}: {{ qresult.score }}/{{ qresult.total_questions }} ({{ qresult.percentage }}%)</span>
+                <span class="quiz-result-date">Taken at {{ qresult.completed_at }}</span>
+            </li>
+            {% empty %}
+            <li class="quiz-result-item">No quiz results found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
