@@ -302,3 +302,26 @@ form.d-flex .btn {
 .create-quiz .btn:hover {
     background-color: #0F6F8A;
 }
+
+
+/* search res */
+.btn-color {
+    padding: 3%;
+    margin-bottom: 2%;
+    background-color: #188CBD; /* Orange color */
+    color: white; /* White text */
+    border: none;
+    border-radius: 12px; /* Adjusted roundness */
+}
+
+.btn-color:hover {
+    background-color: #4f9ec0; /* Darker orange for hover effect */
+    color: white; /* Ensure text remains white */
+}
+
+.card-img-top {
+    width: 100%; /* Ensures the image fits the card width */
+    height: 300px; /* Set a fixed height */
+    object-fit: cover; /* Ensures the image scales and crops to fit */
+    border-radius: 8px; /* Optional: keeps the image corners rounded */
+}
