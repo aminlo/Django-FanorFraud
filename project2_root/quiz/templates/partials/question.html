@@ -1,18 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Question</h2>
-<p>{{ question.text }}</p>
+<div class="question-page">
+    <div class="question-container">
+        <h2 class="question-title">Question</h2>
+        <p class="question-text">{{ question.text }}</p>
 
-<form method="post" action="{% url 'get-answer' %}">
-    {% csrf_token %}
-    <input type="hidden" name="quiz_id" value="{{ question.quiz.id }}">
-    {% for answer in answers %}
-        <div>
-            <input type="radio" name="answer_id" value="{{ answer.id }}" required>
-            <label>{{ answer.text }}</label>
-        </div>
-    {% endfor %}
-    <button type="submit">Submit Answer</button>
-</form>
+        <form method="post" action="{% url 'get-answer' %}" class="question-form">
+            {% csrf_token %}
+            <input type="hidden" name="quiz_id" value="{{ question.quiz.id }}">
+            <div class="answers-container">
+                {% for answer in answers %}
+                    <div class="answer-option">
+                        <input type="radio" name="answer_id" value="{{ answer.id }}" required>
+                        <label class="answer-label">{{ answer.text }}</label>
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="submit-button">Submit Answer</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -303,25 +303,99 @@ form.d-flex .btn {
     background-color: #0F6F8A;
 }
 
-
-/* search res */
 .btn-color {
     padding: 3%;
     margin-bottom: 2%;
-    background-color: #188CBD; /* Orange color */
-    color: white; /* White text */
+    background-color: #188CBD;
+    color: white;
     border: none;
-    border-radius: 12px; /* Adjusted roundness */
+    border-radius: 12px;
 }
 
 .btn-color:hover {
-    background-color: #4f9ec0; /* Darker orange for hover effect */
-    color: white; /* Ensure text remains white */
+    background-color: #4f9ec0;
+    color: white;
 }
 
 .card-img-top {
-    width: 100%; /* Ensures the image fits the card width */
-    height: 300px; /* Set a fixed height */
-    object-fit: cover; /* Ensures the image scales and crops to fit */
-    border-radius: 8px; /* Optional: keeps the image corners rounded */
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.question-container {
+    background-color: #333333;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 30px auto;
+    max-width: 800px;
+    width: 100%;
+}
+
+.question-title {
+    color: #F6754C;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.question-text {
+    color: #E4EFEF;
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.question-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.answers-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.answer-label {
+    color: #b3b3b3;
+    font-size: 1rem;
+}
+
+.submit-button {
+    background-color: #188CBD;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    color: #FBFBFB;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #0F6F8A;
+}
+
+.question-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background-color: #000000;
 }
