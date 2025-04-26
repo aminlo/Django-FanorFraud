@@ -105,6 +105,9 @@ h1, h2, h5 {
 .navbar {
     background-color: #000000 !important;
 }
+.nav-link {
+    color:#FBFBFB !important;
+}
 
 .navbar a.nav-link {
     color: #FBFBFB !important;
@@ -134,10 +137,6 @@ h1, h2, h5 {
 .navbar-brand:hover {
     color: #E45A3C !important;
     text-decoration: none !important;
-}
-
-.navbar-toggler {
-    border-color: #188CBD !important;
 }
 
 form.d-flex {
@@ -636,3 +635,95 @@ form.d-flex .btn {
     background-color: #0F6F8A;
 }
 
+
+/* quiz detail manage CRUD */
+/* Detail Page Styles */
+.detail-page {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #000000;
+    min-height: 100vh;
+}
+
+.detail-container {
+    background-color: #333333;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 100%;
+    color: #FBFBFB;
+}
+
+.detail-title {
+    color: #F6754C;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.detail-subtitle {
+    color: #E4EFEF;
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.detail-button {
+    display: inline-block;
+    background-color: #F6754C;
+    color: #FBFBFB;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px 0;
+    transition: background-color 0.3s ease;
+}
+
+.detail-button:hover {
+    background-color: #bb5739;
+}
+
+.question-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.question-item {
+    background-color: #222222;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.question-text {
+    font-size: 1rem;
+    color: #E4EFEF;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.question-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.question-action-button {
+    background-color: #188CBD;
+    color: #FBFBFB;
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.question-action-button:hover {
+    background-color: #0F6F8A;
+}
