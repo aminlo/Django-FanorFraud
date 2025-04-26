@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-3">
+  <h5 class="text-center mb-3 text-white">Search Results for "{{ request.GET.q }}"</h5> <!-- Added 'text-white' -->
+
+  {% if results %}
+    <div class="row">
+      {% for item in results %}
+        <div class="col-6 col-sm-4 col-md-2 mb-2">
+          <div class="card h-100 bg-dark text-white"> <!-- Added 'text-white' -->
+            {% if item.Poster != 'N/A' %}
+              <img src="{{ item.Poster }}" class="card-img-top img-fluid" alt="{{ item.Title }}">
+            {% endif %}
+            <div class="card-body p-1">
+              <h6 class="card-title mb-1 text-truncate text-white">{{ item.Title }} ({{ item.Year }})</h6> <!-- Added 'text-white' -->
+              <a href="{% url 'series_detail' item.imdbID %}" class="btn btn-sm btn-color">View Details</a> <!-- Updated button class -->
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-center text-white">No results found.</p> <!-- Added 'text-white' -->
+  {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Update Profile{% endblock %}
+
+{% block content %}
+<div class="signup-page">
+    <div class="signup-container">
+        <h1 class="signup-title">Update {{ user.username }}'s Profile</h1>
+        <p class="profile-welcome">Welcome to your profile update page!</p>
+        <p class="profile-email">Email: {{ user.email }}</p>
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        <div class="signup-form-container">
+            <form method="post" enctype="multipart/form-data" class="signup-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="signup-button">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

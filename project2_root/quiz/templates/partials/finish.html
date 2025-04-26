@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="question-page">
+    <div class="question-container">
+        <h2 class="question-title">Quiz Complete!</h2>
+        <p class="question-text">You scored {{ score }} out of {{ questions_count }} ({{ percent_score }}%)</p>
+
+        <a href="{% url 'index' %}" class="submit-button">Look for more quizzes</a>
+    </div>
+</div>
+{% endblock %}

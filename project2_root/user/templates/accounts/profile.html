@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="profile-page">
+    <div class="profile-container">
+        <h1 class="profile-title">{{ profile_user.username }}'s Profile</h1>
+
+        {% if is_own_profile %}
+        <p class="profile-welcome">Welcome to your profile!</p>
+        <p class="profile-email">Email: {{ profile_user.email }}</p>
+        <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        <p class="profile-bio">Bio: {{ profile_user.bio }}</p>
+        <a href="{% url 'profile_update' %}" class="profile-update-button">Update Profile</a>
+
+        <h2 class="profile-section-title">Your Quizzes</h2>
+        <ul class="quiz-list">
+            {% for quiz in topics %}
+            <li class="quiz-item">
+                {% if quiz.imdb_id %}
+                <img src="{{ quiz.series_info.Poster }}" alt="{{ quiz.name }}" class="quiz-poster">
+                {% endif %}
+                <span class="quiz-name">{{ quiz.name }}</span>
+                <form method="post" action="{% url 'get-questions-start' %}" class="quiz-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+                    <button type="submit" class="quiz-button">Start Quiz</button>
+                </form>
+                <div class="quiz-actions">
+                    <a href="{% url 'quiz-detail' quiz.id %}" class="quiz-action-button">View Quiz</a>
+                    <a href="{% url 'quiz-update' quiz.id %}" class="quiz-action-button">Edit Name</a>
+                    <a href="{% url 'quiz-delete' quiz.id %}" class="quiz-action-button">Delete Quiz</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="quiz-item">No quizzes found.</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+        <p class="profile-viewing">You are viewing {{ profile_user.username }}'s profile.</p>
+        <img src="{{ profile_user.profile_picture.url }}" alt="Profile Picture" class="profile-picture">
+        <p class="profile-bio">Bio: {{ profile_user.bio }}</p>
+        {% endif %}
+
+        <h2 class="profile-section-title">Quiz Results</h2>
+        <ul class="quiz-results">
+            {% for qresult in user.quizresult_set.all %}
+            <li class="quiz-result-item">
+                <span>{{ qresult.quiz.name }}: {{ qresult.score }}/{{ qresult.total_questions }} ({{ qresult.percentage }}%)</span>
+                <span class="quiz-result-date">Taken at {{ qresult.completed_at }}</span>
+            </li>
+            {% empty %}
+            <li class="quiz-result-item">No quiz results found.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

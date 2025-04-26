@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="detail-page">
+    <div class="detail-container">
+        <h2 class="detail-title">{{ quiz.name }}</h2>
+
+
+        <h3 class="detail-subtitle">Questions:</h3>
+        <ul class="question-list">
+            {% for question in quiz.question_set.all %}
+            <li class="question-item">
+                <p class="question-text">{{ question.text }}</p>
+                <div class="question-actions">
+                    <a href="{% url 'question-update' question.id %}" class="question-action-button">Edit</a>
+                    <a href="{% url 'question-delete' question.id %}" class="question-action-button">Delete</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="question-item">No questions found.</li>
+            {% endfor %}
+            <a href="{% url 'question-create' quiz.id %}" class="detail-button">Add Question</a>
+        </ul>
+    </div>
+</div>
+{% endblock %}

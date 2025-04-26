@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="signup-page">
+    <div class="signup-container">
+        <h2 class="signup-title">Login</h2>
+        <div class="signup-form-container">
+            <form method="post" class="signup-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.as_p }}
+                </div>
+                <div class="button-container">
+                    <button type="submit" class="signup-button">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

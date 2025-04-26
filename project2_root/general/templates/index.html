@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5 quiz-container">
+    <h1 class="text-center mb-4 quiz-title">Fan or Fraud? - A TV Series Quiz</h1>
+
+    <h2 class="mb-4 quiz-subtitle">Available Quizzes:</h2>
+    <div class="row g-4">
+        {% for topic in topics %}
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm d-flex flex-row quiz-card">
+                    {% if topic.series_info %}
+                        <img src="{{ topic.series_info.Poster }}" 
+                             alt="{{ topic.series_info.Title }}" 
+                             class="card-img-left quiz-poster">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title quiz-card-title">{{ topic.name }}</h5>
+                        {% if topic.series_info %}
+                            <p class="card-text quiz-card-text"><strong>Series:</strong> {{ topic.series_info.Title }}</p>
+                        {% endif %}
+                        <p class="card-text quiz-card-text"><strong>Questions:</strong> {{ topic.questions_count }}</p>
+                        <div class="index-button">
+                            <form method="post" action="{% url 'get-questions-start' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="quiz_id" value="{{ topic.id }}">
+                                <button type="submit" class="btn btn-primary quiz-start-btn">Start Quiz</button>
+                            </form>
+                            <a href="{% url 'series_detail' topic.imdb_id %}" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
