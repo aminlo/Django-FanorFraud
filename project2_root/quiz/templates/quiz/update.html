@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h2>Update Quiz</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
-<a href="{% url 'quiz-manage' %}"><button>Back to Quizzes</button></a>
-{% endblock %} 
+<div class="signup-page">
+    <div class="signup-container">
+        <h2 class="signup-title">Update Quiz</h2>
+        <form method="post" class="signup-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <div class="button-container">
+                <button type="submit" class="signup-button">Submit</button>
+            </div>
+        </form>
+        <div class="button-container">
+            <a href="{% url 'profile' %}" class="signup-button">Back to Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

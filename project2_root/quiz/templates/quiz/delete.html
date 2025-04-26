@@ -1,11 +1,19 @@
-{% extends 'quiz_index/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>Delete Quiz</h2>
-<form method="post">
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{ quiz.name }}"?</p>
-    <input type="submit" value="Confirm" />
-</form>
-<a href="{% url 'quiz-manage' %}"><button>Back to Quizzes</button></a>
-{% endblock %} 
+<div class="signup-page">
+    <div class="signup-container">
+        <h2 class="signup-title">Delete Quiz</h2>
+        <form method="post" class="signup-form">
+            {% csrf_token %}
+            <p class="form-group">Are you sure you want to delete "{{ quiz.name }}"?</p>
+            <div class="button-container">
+                <input type="submit" value="Confirm" class="signup-button" />
+            </div>
+        </form>
+        <div class="button-container">
+            <a href="{% url 'profile' %}" class="signup-button">Back to Profile</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

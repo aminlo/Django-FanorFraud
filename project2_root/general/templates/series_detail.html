@@ -1,31 +1,57 @@
-<h1>{{ series.Title }}</h1>
-<p><strong>Year:</strong> {{ series.Year }}</p>
-<p><strong>Genre:</strong> {{ series.Genre }}</p>
-<p><strong>Plot:</strong> {{ series.Plot }}</p>
-{% if series.Poster != 'N/A' %}
-  <img src="{{ series.Poster }}" alt="{{ series.Title }}" width="200">
-{% endif %}
+{% extends "base.html" %}
 
-<a href="{% url 'index' %}">⬅ Back to Home</a>
+{% block title %}Series Detail{% endblock %}
 
-<h2>Quizzes for this show:</h2>
-<ul>
-{% for quiz in quizzes %}
-    <li>
-        {{ quiz.name }}
-        {{ quiz.id }}
-        {{ quiz.owner }}
-        <form method="post" action="{% url 'get-questions-start' %}">
-            {% csrf_token %}
-            <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
-            <button type="submit">Start</button>
-        </form>
-    </li>
-{% empty %}
-    <li>No quizzes found.</li>
-{% endfor %}
-</ul>
+{% block content %}
+<div class="container my-5">
+  <div class="series-detail-container">
+    <div class="row align-items-center mb-4">
+      <!-- Poster and Back to Home button on the left -->
+      {% if series.Poster != 'N/A' %}
+      <div class="col-md-4 text-center d-flex flex-column align-items-center">
+        <div class="back-button text-start w-100 mb-3">
+          <a href="{% url 'index' %}" class="btn btn-outline-secondary btn-sm">⬅ Back to Home</a>
+        </div>
+        <img src="{{ series.Poster }}" alt="{{ series.Title }}" class="poster-img img-fluid rounded shadow mb-3">
+      </div>
+      {% endif %}
+      <!-- Series details on the right -->
+      <div class="col-md-8">
+        <h1 class="series-title display-4">{{ series.Title }}</h1>
+        <p class="series-year"><strong>Year:</strong> {{ series.Year }}</p>
+        <p class="series-genre"><strong>Genre:</strong> {{ series.Genre }}</p>
+        <p class="series-plot"><strong>Plot:</strong> {{ series.Plot }}</p>
+      </div>
+    </div>
 
-{% if can_create %}
-  <a href="{% url 'quiz-create' imdb_id %}">Create a Quiz for This Series</a>
-{% endif %}
+    <div class="quizzes-section">
+      <h2 class="quizzes-title h4 mb-4 text-center">Quizzes for this Show</h2>
+      <ul class="quizzes-list">
+        {% for quiz in quizzes %}
+          <li class="quiz-item d-flex justify-content-between align-items-center py-3">
+            <div class="quiz-info">
+              <span class="quiz-name fw-bold d-block">{{ quiz.name }}</span>
+              <span class="quiz-id text-muted small">Quiz ID: #{{ quiz.id }}</span>
+              <span class="quiz-owner text-muted small">Created by: {{ quiz.owner }}</span>
+            </div>
+            <form method="post" action="{% url 'get-questions-start' %}" class="quiz-form">
+              {% csrf_token %}
+              <input type="hidden" name="quiz_id" value="{{ quiz.id }}">
+              <button type="submit" class="btn btn-primary btn-sm">Start</button>
+            </form>
+          </li>
+        {% empty %}
+          <li class="no-quizzes text-center py-4">
+            <p class="text-white mb-0">No quizzes found for this show.</p>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if can_create %}
+        <div class="create-quiz mt-4 text-center">
+          <a href="{% url 'quiz-create' imdb_id %}" class="btn btn-success btn-sm">Create a Quiz for This Series</a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

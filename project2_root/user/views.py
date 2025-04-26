@@ -8,6 +8,11 @@ from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404
+import requests
+from quiz.models import Quiz
+from django.db.models import Count
+from .forms import CustomUserCreationForm
+from .models import CustomUser
 
 def index(request, pagename=''):
     pagename = '/' + pagename
@@ -25,7 +30,7 @@ class CustomLoginView(LoginView):
         return self.success_url
 
 class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('index')  # Or login page or wherever
+    next_page = reverse_lazy('index')  # redirect to homepage
 
 
 class HomeView(View):
@@ -34,10 +39,6 @@ class HomeView(View):
         }
         return render(request, 'accounts/home.html', context)
     
-from .forms import CustomUserCreationForm
-from .models import CustomUser
-
-
 
 class SignUpView(CreateView):
     form_class = CustomUserCreationForm
@@ -47,7 +48,7 @@ class SignUpView(CreateView):
     def form_valid(self, form):
         self.object = form.save() 
         login(self.request, self.object)  
-        return super().form_valid(form)
+        return super().form_valid(form) # login after, with self = user, after submission.
 
 
 class ProfileView(TemplateView):
@@ -68,10 +69,23 @@ class ProfileView(TemplateView):
         else:
             user = self.request.user  # Default to the logged-in user's profile
 
+        
         # Add user data to the context (to be accessed as)
         context['profile_user'] = user
         context['is_own_profile'] = (user == self.request.user)  # Check if viewing own profile (flag)
 
+        topics = user.quiz_set.all().annotate(questions_count=Count('question'))
+        for topic in topics:
+            if topic.imdb_id:
+                response = requests.get('http://www.omdbapi.com/', params={
+                    'apikey': '96881c4f',
+                    'i': topic.imdb_id
+                })
+                data = response.json()
+                if data.get('Response') == 'True':
+                    topic.series_info = data # Adds content from api to each quiz.
+        
+        context['topics'] = topics
         return context
     
 class ProfileUpdateView(LoginRequiredMixin, UpdateView):
@@ -81,5 +95,5 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'accounts/profile_update.html'
     success_url = reverse_lazy('profile')  # Redirect after successful update
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset=None): 
         return self.request.user  # Only allow the logged-in user to edit their own profile

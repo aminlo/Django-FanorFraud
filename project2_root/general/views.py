@@ -3,18 +3,37 @@ from django.http import HttpResponse
 import requests
 from django.views.generic import TemplateView
 from quiz.models import Quiz
+from django.db.models import Count
 
 class HomeView(TemplateView):
     template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        topics = Quiz.objects.all().annotate(questions_count=Count('question'))
+        
+        # add topics to context, but we want image as well so send request to omdbapi
+        for topic in topics:
+            if topic.imdb_id:
+                response = requests.get('http://www.omdbapi.com/', params={
+                    'apikey': '96881c4f',
+                    'i': topic.imdb_id
+                })
+                data = response.json()
+                if data.get('Response') == 'True':
+                    topic.series_info = data # adds content from api to each quiz.
+        
+        context['topics'] = topics
+        return context
 
 class SearchResultsView(TemplateView):
     template_name = 'searchres.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = self.request.GET.get('q') # gets q from form
+        query = self.request.GET.get('q') # gets q from form in navbar (search)
         results = []
-        if query:
+        if query: #valid search
             url = 'http://www.omdbapi.com/'
             params = {
                 'apikey': '96881c4f',
@@ -46,7 +65,7 @@ class SeriesDetailView(TemplateView):
             if data.get('Response') == 'True':
                 context['series'] = data
                 context['imdb_id'] = imdb_id
-                context['quizzes'] = Quiz.objects.filter(imdb_id=imdb_id)
-                context['can_create'] = self.request.user.is_authenticated
+                context['quizzes'] = Quiz.objects.filter(imdb_id=imdb_id) # From quizzes model
+                context['can_create'] = self.request.user.is_authenticated # see if user can create
 
         return context

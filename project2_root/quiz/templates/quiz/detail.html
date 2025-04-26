@@ -1,17 +1,26 @@
-{% extends 'quiz_index/base.html' %}
+{% extends 'base.html' %}
 
 {% block content %}
-<h2>{{ quiz.name }}</h2>
+<div class="detail-page">
+    <div class="detail-container">
+        <h2 class="detail-title">{{ quiz.name }}</h2>
 
-<a href="{% url 'question-create' quiz.id %}"><button>Add Question</button></a>
 
-<h3>Questions:</h3>
-{% for question in quiz.question_set.all %}
-    <p>{{ question.text }}</p>
-    <a href="{% url 'question-update' question.id %}"><button>Edit</button></a>
-    <a href="{% url 'question-delete' question.id %}"><button>Delete</button></a>
-    <br>
-{% endfor %}
-
-<a href="{% url 'quiz-manage' %}"><button>Back to Quizzes</button></a>
-{% endblock %} 
+        <h3 class="detail-subtitle">Questions:</h3>
+        <ul class="question-list">
+            {% for question in quiz.question_set.all %}
+            <li class="question-item">
+                <p class="question-text">{{ question.text }}</p>
+                <div class="question-actions">
+                    <a href="{% url 'question-update' question.id %}" class="question-action-button">Edit</a>
+                    <a href="{% url 'question-delete' question.id %}" class="question-action-button">Delete</a>
+                </div>
+            </li>
+            {% empty %}
+            <li class="question-item">No questions found.</li>
+            {% endfor %}
+            <a href="{% url 'question-create' quiz.id %}" class="detail-button">Add Question</a>
+        </ul>
+    </div>
+</div>
+{% endblock %}
