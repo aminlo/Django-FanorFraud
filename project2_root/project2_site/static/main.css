@@ -4,8 +4,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-/* homepage */
-
 .quiz-title {
     color: #188CBD;
     font-size: 2.5rem;
@@ -104,8 +102,6 @@ h1, h2, h5 {
     margin-top: 9%;
 }
 
-/* nav bar */
-
 .navbar {
     background-color: #000000 !important;
 }
@@ -174,10 +170,6 @@ form.d-flex .btn {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* end of nav bar */
-
-/* footer */
-
 .footer {
     background-color: #000000;
     color: #FBFBFB;
@@ -199,5 +191,114 @@ form.d-flex .btn {
     text-decoration: underline;
 }
 
-/* end of footer */
+.series-detail-container {
+    background-color: #333333;
+    color: #FBFBFB;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
 
+.series-title {
+    color: #F6754C;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.series-year, .series-genre, .series-plot {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.series-year strong, .series-genre strong, .series-plot strong {
+    color: #188CBD;
+}
+
+.poster-img {
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.quizzes-section {
+    margin-top: 30px;
+}
+
+.quizzes-title {
+    color: #F6754C;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.quizzes-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.quiz-item {
+    border-bottom: 1px solid #949494;
+    padding: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.quiz-item:last-child {
+    border-bottom: none;
+}
+
+.quiz-info {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.quiz-name {
+    color: #188CBD;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.quiz-id, .quiz-owner {
+    font-size: rem;
+    color: #b6b6b6 !important;
+}
+
+.quiz-form .btn {
+    background-color: #F6754C;
+    color: #FBFBFB;
+    border: none;
+    font-size: 1rem;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.quiz-form .btn:hover {
+    background-color: #E45A3C;
+}
+
+.no-quizzes {
+    color: #bbbbbb;
+    font-size: 1rem;
+}
+
+.create-quiz .btn {
+    background-color: #188CBD;
+    color: #FBFBFB;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.create-quiz .btn:hover {
+    background-color: #0F6F8A;
+}
