@@ -14,10 +14,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils import timezone
 
 # Quiz Management Views (refer to week 10) (Class-based)
-class QuizList(ListView):
-    model = Quiz
-    template_name = 'quiz/manage.html'
-    context_object_name = 'quizzes'
 
 class QuizCreate(LoginRequiredMixin, CreateView):
     model = Quiz
@@ -42,12 +38,12 @@ class QuizUpdate(UpdateView):
     model = Quiz
     template_name = 'quiz/update.html'
     fields = ['name']
-    success_url = reverse_lazy('quiz-manage')
+    success_url = reverse_lazy('profile')
 
 class QuizDelete(DeleteView):
     model = Quiz
     template_name = 'quiz/delete.html'
-    success_url = reverse_lazy('quiz-manage')
+    success_url = reverse_lazy('profile')
 
 # Question Management Views (Class-based)
 class QuestionCreate(CreateView):
