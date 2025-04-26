@@ -21,7 +21,7 @@ class HomeView(TemplateView):
                 })
                 data = response.json()
                 if data.get('Response') == 'True':
-                    topic.series_info = data
+                    topic.series_info = data # adds content from api to each quiz.
         
         context['topics'] = topics
         return context
@@ -31,9 +31,9 @@ class SearchResultsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        query = self.request.GET.get('q') # gets q from form
+        query = self.request.GET.get('q') # gets q from form in navbar (search)
         results = []
-        if query:
+        if query: #valid search
             url = 'http://www.omdbapi.com/'
             params = {
                 'apikey': '96881c4f',
@@ -65,7 +65,7 @@ class SeriesDetailView(TemplateView):
             if data.get('Response') == 'True':
                 context['series'] = data
                 context['imdb_id'] = imdb_id
-                context['quizzes'] = Quiz.objects.filter(imdb_id=imdb_id)
-                context['can_create'] = self.request.user.is_authenticated
+                context['quizzes'] = Quiz.objects.filter(imdb_id=imdb_id) # From quizzes model
+                context['can_create'] = self.request.user.is_authenticated # see if user can create
 
         return context

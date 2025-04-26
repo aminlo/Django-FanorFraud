@@ -9,6 +9,9 @@ class Quiz(models.Model):
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=True, blank=True)
     imdb_id = models.CharField(max_length=20, null=True, blank=True)
 
+    def __str__(self):
+        return f"Title: {self.name} Created by: {self.owner}"
+    
 class Question(models.Model):
   MULTIPLE_CHOICE = 'MC'
   QUESTION_TYPES = [
@@ -22,11 +25,16 @@ class Question(models.Model):
   class Meta:
     ordering = ['id']
 
+  def __str__(self):
+      return f"Question: {self.text}"
+
 class Answer(models.Model):
   question = models.ForeignKey(Question, on_delete=models.CASCADE)
   text = models.CharField(max_length=300)
   is_correct = models.BooleanField(default=False)
-
+  def __str__(self):
+      return f"{self.question}: Answer: {self.text} Is correct: {self.is_correct}"
+  
 class QuizResult(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
